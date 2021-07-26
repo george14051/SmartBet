@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}
+    Build Contracts
+{% endblock %}
+
+{% block content %}
+    Here you can build a contract and start bet
+
+<body class="text-center">
+  <div class="container">
+        <form method="POST" class="form-build_contracts" style="color:white">
+        {{ form.hidden_tag() }}
+        <img class="mb-4" src="https://bitcoinasset.io/assets/img/2021/logo/crypto/eth.png" alt="">
+        <h1 class="h3 mb-3 font-weight-normal">
+            Please Enter your contract perimeters
+        </h1>
+            <br>
+
+        {{ form.sportType.label() }}
+        {{ form.sportType(class="form-control", placeholder="sport?") }}
+
+        {{ form.date.label() }}
+        {{ form.date(class="date-control") }}
+
+        <br>
+        {{ form.search(class="btn btn-lg btn-black btn-primary") }}
+
+        </form>
+    </div>
+</body>
+
+{% endblock %}

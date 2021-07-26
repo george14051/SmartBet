@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+    Search Page
+{% endblock %}
+{% block content %}
+<body class="text-center">
+  <div class="container">
+        <form method="POST" class="form-search" style="color:white">
+        {{ form.hidden_tag() }}
+        <img class="mb-4" src="https://bitcoinasset.io/assets/img/2021/logo/crypto/eth.png" alt="">
+        <h1 class="h3 mb-3 font-weight-normal">
+            Please Enter your search stuff
+        </h1>
+            <br>
+            {{ form.contractId.label() }}
+            {{ form.contractId(class="form-control", placeholder="Contract ID") }}
+
+        {{ form.sportType.label() }}
+        {{ form.sportType(class="form-control", placeholder="sport?") }}
+
+        {{ form.date.label() }}
+        {{ form.date(class="date-control") }}
+
+        <br>
+        {{ form.search(class="btn btn-lg btn-black btn-primary") }}
+
+        </form>
+    </div>
+</body>
+
+{% endblock %}
