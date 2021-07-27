@@ -1,8 +1,9 @@
 import logging
+
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, DateTimeField
+from wtforms import StringField, PasswordField, SubmitField, DateTimeField, BooleanField, IntegerField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
-from market.models import User
+from market.models import User, Bet
 
 
 class RegisterForm(FlaskForm):
@@ -42,10 +43,43 @@ class SearchForm(FlaskForm):
     search = SubmitField(label="Go!")
 
 
-class CreateBet(FlaskForm):
+class CreateStepOne(FlaskForm):
+    # contract info:
+    public = BooleanField(label='Is the bet it public:')
+    numberOfParticipants = IntegerField(label='Number of particpants:',validators=[DataRequired()])
     sportType = StringField(label='Type of Sport:')
-    date = DateTimeField(label='date of game:')
-    search = SubmitField(label="Go!")
+    # toA = SubmitField(label='next')
+# just for now, in the future get REST API:
+#     # ----------------------------
+    date = DateTimeField(label='Date of the game:')
+    hour = StringField(label='Starting hour of the game:', validators=[DataRequired()])
+    teamA = StringField(label='First team', validators=[DataRequired()])
+    teamB = StringField(label='Second team', validators=[DataRequired()])
+#     # ------------------------------------
+#     ratioLabel = "what is the ration between {1} to {2}", CreateStepTwo.teamA, CreateStepTwo.teamB
+    ratio = StringField(label='what is the ration between the teams?', validators=[DataRequired()])
+    maxParticipants = IntegerField(label='max people:', validators=[DataRequired()])
+    minParticipants = IntegerField(label='min people:', validators=[DataRequired()])
+    minVal = IntegerField(label='Minimum cash in:', validators=[DataRequired()])
+    maxVal = IntegerField(label='Maximum cash in:', validators=[DataRequired()])
+    Create = SubmitField(label='Create a bet')
 
-
-
+# class CreateStepTwo(CreateStepOne):
+#     # just for now, in the future get REST API:
+#     # ----------------------------
+#     datetime = DateTimeField(label='Date of the game:')
+#     hour = StringField(label='Starting hour of the game:', validators=[DataRequired()])
+#     teamA = StringField(label='First team', validators=[DataRequired()])
+#     teamB = StringField(label='Second team', validators=[DataRequired()])
+#     # ------------------------------------
+#     toB = SubmitField(label='next')
+#
+#
+# class CreateStepThree(CreateStepTwo):
+#     ratioLabel = "what is the ration between {1} to {2}", CreateStepTwo.teamA, CreateStepTwo.teamB
+#     ratio = StringField(label=ratioLabel, validators=[DataRequired()])
+#     maxParticipants = IntegerField(label='max people:', validators=[DataRequired()])
+#     minParticipants = IntegerField(label='min people:', validators=[DataRequired()])
+#     minVal = IntegerField(label='Minimum cash in:', validators=[DataRequired()])
+#     maxVal = IntegerField(label='Maximum cash in:', validators=[DataRequired()])
+#     Create = SubmitField(label='Create a bet')

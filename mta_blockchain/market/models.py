@@ -8,7 +8,6 @@ class User(db.Model):
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
     budget = db.Column(db.Integer(), nullable=False, default=1000)
-    items = db.relationship('Item', backref='owned_user', lazy=True)
 
     @property
     def password(self):
@@ -22,12 +21,25 @@ class User(db.Model):
         return f'User {self.username}'
 
 
-class Contract(db.Model):
-    id = db.Column(db.String(length=20), primary_key=True, nullable=False, unique=True)
+class Bet(db.Model):
+    # contract info:
+    uuid = db.Column(db.String(length=20), primary_key=True, nullable=False, unique=True)
+    public = db.Column(db.Boolean, nullable=False)
+    numberOfParticipants = db.Column(db.Integer(), nullable=False)
+    active = db.Column(db.Boolean, nullable=False) #true before the game, false after the game
+    # game info:
+    datetime = db.Column(db.Date, nullable=False)
+    hour = db.Column(db.String, nullable=False)
+    sportType = db.Column(db.String, nullable=False)
     teamA = db.Column(db.String(length=30), nullable=False)
     teamB = db.Column(db.String(length=30), nullable=False)
-    win = db.Column(db.String(length=12), nullable=False, unique=True)
+    # draw = db.Column(db.Boolean, nullable=False) // need to add agter
+    # bet info:
     ratio = db.Column(db.Integer, nullable=False, unique=True)
+    maxParticipants = db.Column(db.Integer, nullable=False, unique=True)
+    minParticipants = db.Column(db.Integer, nullable=False, unique=True)
+    minVal = db.Column(db.Integer, nullable=False, unique=True)
+    maxVal = db.Column(db.Integer, nullable=False, unique=True)
 
     def __repr__(self):
-        return f'Contract {self.id}'
+        return f'Bet {self.id}'
