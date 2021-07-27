@@ -4,9 +4,7 @@
 {% endblock %}
 
 {% block content %}
-    Here you can build a contract and start bet
-
-<body class="text-center">
+`<body class="text-center">
   <div class="container">
         <form method="POST" class="form-build_contracts" style="color:white">
         {{ form.hidden_tag() }}
@@ -17,14 +15,64 @@
             <br>
 
         {{ form.sportType.label() }}
-        {{ form.sportType(class="form-control", placeholder="sport?") }}
+        {{ form.sportType(class="form-control") }}
+        <br>
+
+        {{ form.public.label() }}
+        {{ form.public(class="form-control") }}
+        <br>
+
+        {{ form.numberOfParticipants.label() }}
+        {{ form.numberOfParticipants(class="form-control", placeholder="number of participaions?") }}
+        <br>
+        <br>
+        <br>
+
+            {#           second secation:#}
+        <br>
 
         {{ form.date.label() }}
         {{ form.date(class="date-control") }}
+        <br>
+
+        {{ form.hour.label() }}
+        {{ form.hour(class="form-control", placeholder="hour?") }}
+        <br>
+
+        {{ form.teamA.label() }}
+        {{ form.teamA(class="form-control", placeholder="teamA?") }}
+        <br>
+
+        {{ form.teamB.label() }}
+        {{ form.teamB(class="form-control", placeholder="teamB?") }}
+        <br>
+        <br>
+        <br>
+
+            {#           third secation:#}
+        <br>
+
+        {{ form.ratio.label() }}
+        {{ form.ratio(class="form-control", placeholder="ratio?") }}
+        <br>
+
+        {{ form.maxParticipants.label() }}
+        {{ form.maxParticipants(class="form-control", placeholder="maxParticipants?") }}
+        <br>
+
+        {{ form.minParticipants.label() }}
+        {{ form.minParticipants(class="form-control", placeholder="minParticipants?") }}
+        <br>
+
+        {{ form.minVal.label() }}
+        {{ form.minVal(class="form-control", placeholder="minVal?") }}
+        <br>
+
+        {{ form.maxVal.label() }}
+        {{ form.maxVal(class="form-control", placeholder="maxVal?") }}
 
         <br>
-        {{ form.search(class="btn btn-lg btn-black btn-primary") }}
-
+        {{ form.Create(class="btn btn-lg btn-black btn-primary") }}
         </form>
     </div>
 </body>

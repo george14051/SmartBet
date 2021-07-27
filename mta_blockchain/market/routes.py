@@ -1,7 +1,10 @@
 from market import app, db
-from market.models import User, Contract
+from market.models import User, Bet
 from flask import render_template, redirect, url_for, flash
-from market.forms import RegisterForm, LoginForm, SearchForm, CreateBet
+from market.forms import RegisterForm, LoginForm, SearchForm, CreateStepOne
+import uuid
+
+
 
 @app.route("/")
 @app.route("/home")
@@ -16,7 +19,7 @@ def login_page():
                         password=form.password1.data)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('market_page'))
+        return redirect(url_for('home_page'))
     if form.errors != {}:
         for err_msg in form.errors.values():
             flash(f' There was an error creating a user: {err_msg}', category='danger')
@@ -32,28 +35,43 @@ def register_page():
                         password=form.password1.data)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('market_page'))
+        return redirect(url_for('home_page'))
     if form.errors != {}:
         for err_msg in form.errors.values():
             flash(f' There was an error creating a user: {err_msg}', category='danger')
 
     return render_template('register.html', form=form)
 
-@app.route("/searchContract", methods=['GET', 'POST'])
+@app.route("/search_contract", methods=['GET', 'POST'])
 def search_page():
     form = SearchForm()
     return render_template('search.html', form=form)
 
 @app.route("/result/<id>", methods=['GET'])
 def result_page(id):
-    contracts = Contract.query.all()
+    contracts = Bet.query.all()
     return render_template('result.html', contracts=contracts)
 
-@app.route("/newWallet")
+@app.route("/new_wallet")
 def wallet_page():
     return render_template('newWallet.html')
 
-@app.route("/contracts")
+
+@app.route("/make_bet", methods=['GET', 'POST'])
 def contracts_page():
-    form = CreateBet()
+    form = CreateStepOne()
+    if form.validate_on_submit():
+        new_bet = Bet(public=form.public.data, numberOfParticipants=form.numberOfParticipants.data,
+                      datetime=form.datetime.data, hour=form.datetime.data, teamA=form.teamA.data,
+                      teamB=form.teamB.data,  ratio=form.ratio.data, maxParticipants=form.maxParticipants.data,
+                      minParticipants=form.minParticipants.data, minVal=form.minVal.data, maxVal=form.maxVal.data,
+                      sportType=form.sportType.data, active=True, uuid=uuid.uuid4())
+        db.session.add(new_bet)
+        db.session.commit()
+        print("done!")
+        return redirect(url_for('home_page'))
+    else:
+        print("error!")
+        a=input()
+        return redirect(url_for('home_page'))
     return render_template('buildContracts.html', form=form)
