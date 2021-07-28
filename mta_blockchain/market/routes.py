@@ -62,7 +62,7 @@ def contracts_page():
     form = CreateStepOne()
     if form.validate_on_submit():
         new_bet = Bet(public=form.public.data, numberOfParticipants=form.numberOfParticipants.data,
-                      datetime=form.datetime.data, hour=form.datetime.data, teamA=form.teamA.data,
+                      date=form.date.data, hour=form.hour.data, teamA=form.teamA.data,
                       teamB=form.teamB.data,  ratio=form.ratio.data, maxParticipants=form.maxParticipants.data,
                       minParticipants=form.minParticipants.data, minVal=form.minVal.data, maxVal=form.maxVal.data,
                       sportType=form.sportType.data, active=True, uuid=uuid.uuid4())
@@ -70,8 +70,8 @@ def contracts_page():
         db.session.commit()
         print("done!")
         return redirect(url_for('home_page'))
-    else:
-        print("error!")
-        a=input()
+    if form.errors != {}:
+        for err_msg in form.errors.values():
+            flash(f' There was an error creating a user: {err_msg}', category='danger')
         return redirect(url_for('home_page'))
     return render_template('buildContracts.html', form=form)

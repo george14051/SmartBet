@@ -28,7 +28,7 @@ class Bet(db.Model):
     numberOfParticipants = db.Column(db.Integer(), nullable=False)
     active = db.Column(db.Boolean, nullable=False) #true before the game, false after the game
     # game info:
-    datetime = db.Column(db.Date, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
     hour = db.Column(db.String, nullable=False)
     sportType = db.Column(db.String, nullable=False)
     teamA = db.Column(db.String(length=30), nullable=False)

@@ -1,7 +1,7 @@
 import logging
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, DateTimeField, BooleanField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, DateTimeField, DateField, BooleanField, IntegerField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from market.models import User, Bet
 
@@ -51,7 +51,7 @@ class CreateStepOne(FlaskForm):
     # toA = SubmitField(label='next')
 # just for now, in the future get REST API:
 #     # ----------------------------
-    date = DateTimeField(label='Date of the game:')
+    date = DateField(label='Date of the game:', format='%Y-%m-%d')
     hour = StringField(label='Starting hour of the game:', validators=[DataRequired()])
     teamA = StringField(label='First team', validators=[DataRequired()])
     teamB = StringField(label='Second team', validators=[DataRequired()])
