@@ -46,13 +46,12 @@ class SearchForm(FlaskForm):
 class CreateStepOne(FlaskForm):
     # contract info:
     public = BooleanField(label='Is the bet it public:')
-    numberOfParticipants = IntegerField(label='Number of particpants:',validators=[DataRequired()])
+    numberOfParticipants = IntegerField(label='Number of participants:',validators=[DataRequired()])
     sportType = StringField(label='Type of Sport:')
     # toA = SubmitField(label='next')
 # just for now, in the future get REST API:
 #     # ----------------------------
-    date = DateField(label='Date of the game:', format='%Y-%m-%d')
-    hour = StringField(label='Starting hour of the game:', validators=[DataRequired()])
+    date = StringField(label='Date of the game:')
     teamA = StringField(label='First team', validators=[DataRequired()])
     teamB = StringField(label='Second team', validators=[DataRequired()])
 #     # ------------------------------------

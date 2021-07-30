@@ -3,11 +3,11 @@ from market import bcrypt
 
 
 class User(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(db.String(length=50), primary_key=True)
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
-    budget = db.Column(db.Integer(), nullable=False, default=1000)
+    # bets = db.relationship('Bet',  db.ForeignKey('bet.id'))
 
     @property
     def password(self):
@@ -23,23 +23,22 @@ class User(db.Model):
 
 class Bet(db.Model):
     # contract info:
-    uuid = db.Column(db.String(length=20), primary_key=True, nullable=False, unique=True)
+    uuid = db.Column(db.String(length=50), primary_key=True, unique=True)
     public = db.Column(db.Boolean, nullable=False)
     numberOfParticipants = db.Column(db.Integer(), nullable=False)
-    active = db.Column(db.Boolean, nullable=False) #true before the game, false after the game
+    active = db.Column(db.Boolean, nullable=False)  # true before the game, false after the game
     # game info:
-    date = db.Column(db.DateTime, nullable=False)
-    hour = db.Column(db.String, nullable=False)
-    sportType = db.Column(db.String, nullable=False)
+    date = db.Column(db.String(10), nullable=False)
+    sportType = db.Column(db.String(length=50), nullable=False)
     teamA = db.Column(db.String(length=30), nullable=False)
     teamB = db.Column(db.String(length=30), nullable=False)
-    # draw = db.Column(db.Boolean, nullable=False) // need to add agter
+    # draw = db.Column(db.Boolean, nullable=False) // need to add it later
     # bet info:
-    ratio = db.Column(db.Integer, nullable=False, unique=True)
-    maxParticipants = db.Column(db.Integer, nullable=False, unique=True)
-    minParticipants = db.Column(db.Integer, nullable=False, unique=True)
-    minVal = db.Column(db.Integer, nullable=False, unique=True)
-    maxVal = db.Column(db.Integer, nullable=False, unique=True)
+    ratio = db.Column(db.Integer, nullable=False)
+    maxParticipants = db.Column(db.Integer, nullable=False)
+    minParticipants = db.Column(db.Integer, nullable=False)
+    minVal = db.Column(db.Integer, nullable=False)
+    maxVal = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return f'Bet {self.id}'
